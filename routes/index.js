@@ -12,18 +12,7 @@ router.get('/', (req, res) => {
 
 
 router.post('/', function(req, res, next) {
-  console.log();
-  console.log();
-  console.log();
-  console.log();
-  console.log();
-  console.log();
-  console.log(req.body);
-  console.log();
-  console.log();
-  console.log();
-  console.log();
-  console.log();
+  console.log(req.body.encodedText);
   console.log('post request from ', req.headers['x-forwarded-for'] || req.connection.remoteAddress)
   res.send('hello world');
 });

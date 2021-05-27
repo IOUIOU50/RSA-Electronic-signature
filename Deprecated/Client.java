@@ -1,3 +1,5 @@
+package Deprecated;
+
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -54,54 +56,53 @@ public class Client {
         // POST요청
         postRequest("http://localhost:3000/", postRequestParams);
     }
-    
+
     // HTTP POST request
     private static void postRequest(String targetUrl, Map<String, String> params) throws Exception {
         if (params.isEmpty()) {
             return;
         }
-        
+
         JSONObject js = new JSONObject();
         for (String param : params.keySet()) {
             js.put(param, params.get(param));
         }
-        
+
         URL url = new URL(targetUrl); // URL 설정
+
         try {
-        // URL 설정 하고 접속하기
-    
-        HttpURLConnection http = (HttpURLConnection) url.openConnection(); // 접속
-        // System.out.println("http : " + http);
-        // --------------------------
-        // 전송 모드 설정 - 기본적인 설정
-        // --------------------------
-        http.setRequestMethod("POST"); // 전송 방식은 POST
-        http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
-        http.setRequestProperty("Content-Length",
-        String.valueOf(postDataBytes.length));
-        http.setDoOutput(true); // 서버로 쓰기 모드 지정
-    
-        // --------------------------
-        // 헤더 세팅
-        // --------------------------
-        // 서버에게 웹에서 <Form>으로 값이 넘어온 것과 같은 방식으로 처리하라는 걸 알려준다
-    
-        // --------------------------
-        // 서버로 값 전송
-        // --------------------------
-        // System.out.println("buffer : " + buffer.toString());
-        OutputStreamWriter outStream = new OutputStreamWriter(http.getOutputStream(),
-        "UTF-8");
-        PrintWriter writer = new PrintWriter(outStream);
-        writer.write(postDataBytes.toString());
-        writer.flush();
-    
-        int code = http.getResponseCode();
-        System.out.println("응답코드 : " + code);
-        System.out.println("request");
-    
+            // URL 설정 하고 접속하기
+
+            HttpURLConnection http = (HttpURLConnection) url.openConnection(); // 접속
+            // System.out.println("http : " + http);
+            // --------------------------
+            // 전송 모드 설정 - 기본적인 설정
+            // --------------------------
+            http.setRequestMethod("POST"); // 전송 방식은 POST
+            http.setRequestProperty("content-type", "application/x-www-form-urlencoded");
+            http.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+            http.setDoOutput(true); // 서버로 쓰기 모드 지정
+
+            // --------------------------
+            // 헤더 세팅
+            // --------------------------
+            // 서버에게 웹에서 <Form>으로 값이 넘어온 것과 같은 방식으로 처리하라는 걸 알려준다
+
+            // --------------------------
+            // 서버로 값 전송
+            // --------------------------
+            // System.out.println("buffer : " + buffer.toString());
+            OutputStreamWriter outStream = new OutputStreamWriter(http.getOutputStream(), "UTF-8");
+            PrintWriter writer = new PrintWriter(outStream);
+            writer.write(postDataBytes.toString());
+            writer.flush();
+
+            int code = http.getResponseCode();
+            System.out.println("응답코드 : " + code);
+            System.out.println("request");
+
         } catch (MalformedURLException e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
 
         // String url = targetUrl;
@@ -116,7 +117,6 @@ public class Client {
 
         // // Execute and get the response.
         // HttpResponse response = httpClient.execute(httpPost);
-
 
     }
 
