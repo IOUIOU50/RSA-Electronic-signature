@@ -3,7 +3,9 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.security.*;
+import java.util.Base64;
 
+import javax.crypto.Cipher;
 import javax.net.ssl.HttpsURLConnection;
 
 public class RSASignature {
@@ -38,6 +40,7 @@ public class RSASignature {
 
         // -----------------------------------------
         System.out.println("\n\nMD5WithRSA");
+        // 전자서명
         Signature sig = Signature.getInstance("MD5WithRSA");
         sig.initSign(keyPair.getPrivate());
         sig.update(data);
@@ -50,8 +53,9 @@ public class RSASignature {
             System.out.printf("%02X ", b);
         System.out.print("\nSingature length: " + signatureBytes.length * 8 + " bits");
 
+        //전자서명 검증
         sig.initVerify(keyPair.getPublic());
-        sig.update(data);
+        sig.update(data); // 암호화 이전 text????
         System.out.print("\ndata: ");
         for (byte b : data)
             System.out.printf("%02X ", b);
@@ -73,6 +77,19 @@ public class RSASignature {
         sig1.update(data);
         System.out.print("\nVerification: ");
         System.out.print(sig1.verify(signatureBytes1));
+
+        // Cipher cipher = Cipher.getInstance("RSA");
+        // cipher.init(Cipher.DECRYPT_MODE, publicKey);
+
+        // byte[] byteEncryptedData = Base64.getDecoder().decode(signatureBytes1);
+        // String strDecryptedData = new String(cipher.doFinal(byteEncryptedData));
+
+        // System.out.println();
+        // System.out.println();
+        // System.out.println();
+        // System.out.println("decryption : " + strDecryptedData);
+        // System.out.println();
+        // System.out.println();
 
         // -----------------------------------------
         System.out.println("\n\nSHA512WithRSA");
